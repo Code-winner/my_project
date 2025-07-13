@@ -1,0 +1,341 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f9f9f9;
+  padding: 20px;
+  margin: 0;
+}
+
+.form-title {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+  gap: 15px;
+  width: 95%;
+  margin: auto;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  background-color: #11c5a4;
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+  padding: 4px 6px;
+  border-radius: 2px;
+  margin-bottom: 5px;
+  display: inline-block;
+}
+
+input, select {
+  padding: 5px 8px;
+  font-size: 13px;
+  height: 30px;
+  width: 120px;
+  box-sizing: border-box;
+}
+
+.display-box {
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 4px 6px;
+  font-weight: bold;
+  font-size: 13px;
+  height: 30px;
+  width: 120px;
+  box-sizing: border-box;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+}
+
+.qty-btn {
+  padding: 4px 10px;
+  font-size: 16px;
+  height: 30px;
+  background: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.quantity-control input {
+  width: 50px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.btn-row {
+  grid-column: 1 / -1;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#addBtn {
+  padding: 10px 30px;
+  background: #0078d7;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+#addBtn:active {
+  transform: scale(0.95);
+}
+
+.order-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  table-layout: fixed;
+}
+
+.order-table th {
+  background-color: #11c5a4;
+  color: white;
+  font-weight: bold;
+  padding: 10px 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.order-table td {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  text-align: center;
+}
+
+.edit-btn {
+  background-color: gold;
+  color: black;
+  border: none;
+  padding: 5px 10px;
+  margin-right: 5px;
+  cursor: pointer;
+}
+
+.delete-btn {
+  background-color: crimson;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.centered-submit {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.submit-btn {
+  padding: 10px 30px;
+  background: #0078d7;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.submit-btn:active {
+  transform: scale(0.95);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  width: 120px;
+  box-sizing: border-box;
+}
+
+.display-box {
+  width: 120px;
+}
+
+.quantity-control input {
+  width: 60px;
+}
+
+.table-wrapper {
+  width: 96%;
+  margin: 30px auto;
+  overflow-x: auto;
+  max-height: 250px;
+  overflow-y: auto;
+  position: relative;
+  display: none;
+}
+
+.order-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #11c5a4;
+  color: white;
+  z-index: 1;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.edit-input {
+  width: 100%;
+  padding: 4px;
+  font-size: 13px;
+  box-sizing: border-box;
+  max-width: 100px;
+  text-align: center;
+}
+
+.button-group {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+}
+
+.edit-btn, .delete-btn, .update-btn, .clear-btn {
+  padding: 5px 10px;
+  font-size: 12px;
+  width: 70px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.edit-btn { background: gold; color: black; }
+.delete-btn { background: crimson; color: white; }
+.update-btn { background: #28a745; color: white; }
+.clear-btn  { background: #6c757d; color: white; }
+
+.tab-buttons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.tab-buttons button {
+  padding: 6px 14px;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tab-buttons button:hover {
+  background-color: #005bb5;
+}
+
+/* ✅ FINAL TABLE FIXED */
+#finalTableSection {
+  display: none;
+  margin-top: 40px;
+  overflow-x: auto;
+  max-height: 500px;
+  padding: 0;
+  border: none;
+  background: transparent;
+}
+
+.final-order-table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 13px;
+}
+
+.final-order-table thead th,
+.final-order-table td {
+  padding: 8px 10px;
+  border: 1px solid #ccc;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.final-order-table thead th {
+  position: sticky;
+  top: 0;
+  background-color: #11c5a4;
+  color: white;
+  z-index: ; /* Higher so it stays above scrollbars */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Optional: subtle shadow */
+}
+
+#finalOrderTableBody {
+  max-height: 450px; /* ~15 rows */
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.final-order-table td:nth-child(1),
+.final-order-table td:nth-child(6),
+.final-order-table td:nth-child(7) {
+  width: 60px;
+}
+
+.final-order-table .button-group button {
+  padding: 4px 6px;
+  font-size: 12px;
+  height: 26px;
+  width: auto;
+}
+
+#finalTableSection {
+  overflow: visible !important;
+}
+
+#finalTableScrollWrapper {
+  max-height: 500px;
+  overflow-y: auto;
+  overflow-x: auto;
+}
+
+.tab-buttons {
+  display: flex;
+  justify-content: center; /* ⬅️ Center horizontally */
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.tab-buttons button {
+  padding: 10px 30px; /* ⬅️ Match size with Add/Submit button */
+  background-color: #0078d7;
+  color: white;
+  font-size: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.tab-buttons button:active {
+  transform: scale(0.95);
+}
+
+.final-scroll-container {
+  width: 78%;              /* Width matching your screenshot */
+  margin: auto;
+  overflow-x: auto;        /* Enable horizontal scroll */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.table-scroll-inner {
+  min-width: 1400px;       /* Prevent squishing — enable scroll */
+}
