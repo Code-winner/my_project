@@ -73,6 +73,7 @@ function submitAll() {
   document.getElementById("orderTableBody").innerHTML = "";
   document.getElementById("addTableWrapper").style.display = "none";
   document.getElementById("submitBtnWrapper").style.display = "none";
+  document.getElementById("searchFilterWrapper").style.display = "flex";
   generateFinalTable();
 }
 
@@ -219,3 +220,10 @@ function sortTable(key) {
   });
   renderFinalTable(sorted);
 }
+
+function searchSymbol() {
+  const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
+  const filteredData = finalTableData.filter(item => item.symbol.toLowerCase().includes(searchValue));
+  renderFinalTable(filteredData);
+}
+

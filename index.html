@@ -106,7 +106,6 @@
     </form>
   </div>
 
-  <!-- Table -->
   <div class="table-wrapper" style="display: none;" id="addTableWrapper">
     <table class="order-table">
       <thead>
@@ -131,51 +130,58 @@
     </table>
   </div>
 
-  <!-- Submit Button (hidden initially) -->
   <div class="submit-all centered-submit" id="submitBtnWrapper" style="display: none;">
     <button class="submit-btn" onclick="submitAll()">Submit All</button>
   </div>
 
-  <!-- Final Smart Alpha Style Table -->
-  <div id="finalTableSection" style="display: none; margin-top: 40px; overflow: visible;">
-  <div class="tab-buttons">
-    <button onclick="filterRows('all')">All</button>
-    <button onclick="filterRows('booked')">Booked</button>
-    <button onclick="filterRows('triggered')">Triggered</button>
-    <button onclick="filterRows('preorder')">PreOrder</button>
-  </div>
-  <div id="finalTableScrollWrapper" class="final-scroll-container">
-  <div class="table-scroll-inner">
-    <table class="final-order-table">
-      <thead>
-        <tr>
-          <th onclick="sortTable('uid')">UID</th>
-          <th onclick="sortTable('symbol')">Trdsymbol <span id="arrow-symbol">⇅</span></th>
-          <th onclick="sortTable('clientcode')">clientcode</th>
-          <th onclick="sortTable('buysell')">buysell</th>
-          <th onclick="sortTable('inv')">investment</th>
-          <th onclick="sortTable('qty')">qty</th>
-          <th onclick="sortTable('price')">EntryPrice</th>
-          <th onclick="sortTable('tgt')">TgtPrice</th>
-          <th onclick="sortTable('sl')">SLPrice</th>
-          <th>EntryStatus</th>
-          <th>ExitStatus</th>
-          <th>LockTime</th>
-          <th>Entry_Trd_Time</th>
-          <th>Exit_Trd_Time</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody id="finalOrderTableBody"></tbody>
-    </table>
-  </div>
-</div>
+  <!-- ✅ Search + Filter Buttons Hidden Initially -->
+  <div id="searchFilterWrapper" style="display: none; justify-content: center; align-items: center; gap: 12px; margin: 30px 0 10px 0;">
+    <input type="text" id="searchInput" placeholder="Search Trdsymbol..." 
+      oninput="searchSymbol()" 
+      style="padding: 8px 12px; width: 220px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
 
+    <div class="tab-buttons" style="margin: 0; display: flex; gap: 12px;">
+      <button onclick="filterRows('all')">All</button>
+      <button onclick="filterRows('booked')">Booked</button>
+      <button onclick="filterRows('triggered')">Triggered</button>
+      <button onclick="filterRows('preorder')">PreOrder</button>
+    </div>
+  </div>
+
+  <div id="finalTableSection" style="display: none; margin-top: 40px; overflow: visible;">
+    <div id="finalTableScrollWrapper" class="final-scroll-container">
+      <div class="table-scroll-inner">
+        <table class="final-order-table">
+          <thead>
+            <tr>
+              <th onclick="sortTable('uid')">UID</th>
+              <th onclick="sortTable('symbol')">Trdsymbol <span id="arrow-symbol">⇅</span></th>
+              <th onclick="sortTable('clientcode')">clientcode</th>
+              <th onclick="sortTable('buysell')">buysell</th>
+              <th onclick="sortTable('inv')">investment</th>
+              <th onclick="sortTable('qty')">qty</th>
+              <th onclick="sortTable('price')">EntryPrice</th>
+              <th onclick="sortTable('tgt')">TgtPrice</th>
+              <th onclick="sortTable('sl')">SLPrice</th>
+              <th>EntryStatus</th>
+              <th>ExitStatus</th>
+              <th>LockTime</th>
+              <th>Entry_Trd_Time</th>
+              <th>Exit_Trd_Time</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="finalOrderTableBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
   <audio id="clickSound" preload="auto">
     <source src="addclicksound.mp3" type="audio/mpeg">
   </audio>
 
   <script src="script.js"></script>
+
 </body>
 </html>
