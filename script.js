@@ -1,8 +1,10 @@
+// Stores Final Table Data & Sorting State
 
 let finalTableData = [];
 let currentSortKey = "";
 let sortAsc = true;
 
+// Sound Effect for Button Clicks
 function playClickSound() {
   const sound = document.getElementById("clickSound");
   if (sound) {
@@ -12,12 +14,17 @@ function playClickSound() {
   }
 }
 
+// Updates Full Symbol when user selects symbol
 function updateFullSymbol() {
   const symbol = document.getElementById("symbol").value;
   document.getElementById("fullSymbolDisplay").textContent = symbol;
 }
 
+// Changes Quantity with Lot Calculation
 function changeQty(delta) {
+  const exchange = document.getElementById("exchange").value;
+  if (exchange === "NSE") return;
+
   const qty = document.getElementById("quantity");
   const lotSize = parseInt(document.getElementById("lotSize").value) || 1;
   let value = parseInt(qty.value) || 1;
@@ -26,12 +33,68 @@ function changeQty(delta) {
   document.getElementById("lotsDisplay").textContent = Math.ceil(value / lotSize);
 }
 
+// Updates Lots Display when Qty is changed manually
 function updateLots() {
+  const exchange = document.getElementById("exchange").value;
+  if (exchange === "NSE") return;
+
   const qty = parseInt(document.getElementById("quantity").value) || 1;
   const lotSize = parseInt(document.getElementById("lotSize").value) || 1;
   document.getElementById("lotsDisplay").textContent = Math.ceil(qty / lotSize);
 }
 
+// On Page Load, Attach Exchange Change Handler
+window.addEventListener('DOMContentLoaded', () => {
+  document.getElementById("exchange").addEventListener("change", handleExchangeChange);
+  handleExchangeChange();
+});
+
+// Handles Enable/Disable of Fields Based on Exchange
+function handleExchangeChange() {
+  const exchange = document.getElementById("exchange").value;
+  const lotSize = document.getElementById("lotSize");
+  const lotsDisplay = document.getElementById("lotsDisplay");
+  const strikePrice = document.getElementById("strikePrice");
+  const expiryDate = document.getElementById("expiryDate");
+  const orderType = document.getElementById("orderType");
+
+  if (exchange === "NSE") {
+    lotSize.disabled = true;
+    lotSize.style.backgroundColor = "#e0e0e0";
+    strikePrice.disabled = true;
+    strikePrice.style.backgroundColor = "#e0e0e0";
+    expiryDate.disabled = true;
+    expiryDate.style.backgroundColor = "#e0e0e0";
+    lotsDisplay.classList.add("disabled-box");
+
+    orderType.innerHTML = "";
+    const option = document.createElement("option");
+    option.text = "EQ";
+    orderType.add(option);
+  } else {
+    lotSize.disabled = false;
+    lotSize.style.backgroundColor = "";
+    strikePrice.disabled = false;
+    strikePrice.style.backgroundColor = "";
+    expiryDate.disabled = false;
+    expiryDate.style.backgroundColor = "";
+    lotsDisplay.classList.remove("disabled-box");
+
+    orderType.innerHTML = "";
+    ["FUT", "CE", "PE"].forEach(type => {
+      const option = document.createElement("option");
+      option.text = type;
+      orderType.add(option);
+    });
+  }
+
+  orderType.removeEventListener("change", handleOrderTypeChange);
+  orderType.addEventListener("change", handleOrderTypeChange);
+  handleOrderTypeChange();
+}
+
+
+// Adds Row to Temporary Table on Add Click
 function handleAddClick() {
   playClickSound();
   const wrapper = document.getElementById("addTableWrapper");
@@ -42,8 +105,8 @@ function handleAddClick() {
     <td>${getVal("exchange")}</td>
     <td>${getVal("orderType")}</td>
     <td>${getVal("symbol")}</td>
-    <td>-</td>
-    <td>-</td>
+    <td>${getVal("strikePrice")}</td>
+    <td>${getVal("expiryDate")}</td>
     <td>${getVal("clientCode")}</td>
     <td>${getVal("quantity")}</td>
     <td>${getVal("ltp")}</td>
@@ -55,7 +118,7 @@ function handleAddClick() {
     <td>
       <div class="button-group">
         <button class="edit-btn" onclick="enableEdit(this)">Edit</button>
-        <button class="delete-btn" onclick="this.closest('tr').remove()">Delete</button>
+        <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
       </div>
     </td>
   `;
@@ -63,10 +126,12 @@ function handleAddClick() {
   document.getElementById("submitBtnWrapper").style.display = "block";
 }
 
+// Helper to get Field Value
 function getVal(id) {
   return document.getElementById(id)?.value || '';
 }
 
+// Handles Final Submission & Clears Preview Table
 function submitAll() {
   playClickSound();
   alert("Submitted order(s).");
@@ -77,6 +142,7 @@ function submitAll() {
   generateFinalTable();
 }
 
+// Enables Edit Mode on Row
 function enableEdit(btn) {
   playClickSound();
   const row = btn.closest("tr");
@@ -97,6 +163,7 @@ function enableEdit(btn) {
   `;
 }
 
+// Updates Edited Row
 function updateRow(btn) {
   playClickSound();
   const row = btn.closest("tr");
@@ -108,11 +175,12 @@ function updateRow(btn) {
   cells[cells.length - 1].innerHTML = `
     <div class="button-group">
       <button class="edit-btn" onclick="enableEdit(this)">Edit</button>
-      <button class="delete-btn" onclick="this.closest('tr').remove()">Delete</button>
+      <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
     </div>
   `;
 }
 
+// Cancels Edit Mode
 function cancelEdit(btn, values) {
   playClickSound();
   const row = btn.closest("tr");
@@ -123,11 +191,12 @@ function cancelEdit(btn, values) {
   cells[cells.length - 1].innerHTML = `
     <div class="button-group">
       <button class="edit-btn" onclick="enableEdit(this)">Edit</button>
-      <button class="delete-btn" onclick="this.closest('tr').remove()">Delete</button>
+      <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
     </div>
   `;
 }
 
+// Generates Dummy Final Table Data
 function generateFinalTable() {
   playClickSound();
   const section = document.getElementById("finalTableSection");
@@ -163,6 +232,7 @@ function generateFinalTable() {
   renderFinalTable(finalTableData);
 }
 
+// Renders Final Table
 function renderFinalTable(data) {
   playClickSound();
   const tbody = document.getElementById("finalOrderTableBody");
@@ -187,7 +257,7 @@ function renderFinalTable(data) {
         <td>
           <div class="button-group">
             <button class="edit-btn" onclick="enableEdit(this)">Edit</button>
-            <button class="delete-btn" onclick="this.closest('tr').remove()">Delete</button>
+            <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
           </div>
         </td>
       </tr>
@@ -195,6 +265,7 @@ function renderFinalTable(data) {
   });
 }
 
+// Filters Rows Based on Status
 function filterRows(type) {
   playClickSound();
   let filtered = [...finalTableData];
@@ -208,6 +279,7 @@ function filterRows(type) {
   renderFinalTable(filtered);
 }
 
+// Sort Table Columns
 function sortTable(key) {
   sortAsc = key === currentSortKey ? !sortAsc : true;
   currentSortKey = key;
@@ -221,9 +293,57 @@ function sortTable(key) {
   renderFinalTable(sorted);
 }
 
+// Search Symbol
 function searchSymbol() {
   const searchValue = document.getElementById("searchInput").value.trim().toLowerCase();
   const filteredData = finalTableData.filter(item => item.symbol.toLowerCase().includes(searchValue));
   renderFinalTable(filteredData);
+}
+
+// Delete Confirmation
+function confirmDelete(btn) {
+  playClickSound();
+  const row = btn.closest('tr');
+
+  row.querySelector(".button-group").innerHTML = `
+    <button class="confirm-yes" onclick="deleteRow(this)">Yes</button>
+    <button class="confirm-no" onclick="cancelDelete(this)">No</button>
+  `;
+}
+
+// Delete Row
+function deleteRow(btn) {
+  playClickSound();
+  const row = btn.closest("tr");
+  row.remove();
+}
+
+// Cancel Delete
+function cancelDelete(btn) {
+  playClickSound();
+  const row = btn.closest("tr");
+
+  row.querySelector(".button-group").innerHTML = `
+    <button class="edit-btn" onclick="enableEdit(this)">Edit</button>
+    <button class="delete-btn" onclick="confirmDelete(this)">Delete</button>
+  `;
+}
+
+// Order Type Dependent Strike Price Handling
+function handleOrderTypeChange() {
+  const exchange = document.getElementById("exchange").value;
+  const orderType = document.getElementById("orderType").value;
+  const strikePrice = document.getElementById("strikePrice");
+
+  if (exchange === "NSE") {
+    strikePrice.disabled = true;
+    strikePrice.style.backgroundColor = "#e0e0e0";
+  } else if (exchange === "NFO" && orderType === "FUT") {
+    strikePrice.disabled = true;
+    strikePrice.style.backgroundColor = "#e0e0e0";
+  } else {
+    strikePrice.disabled = false;
+    strikePrice.style.backgroundColor = "";
+  }
 }
 

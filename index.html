@@ -4,12 +4,17 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Web Orders</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Rubik&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poiret+One&display=swap" rel="stylesheet">
+  <!-- Stylesheet -->
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
   <h2 class="form-title">Web Orders</h2>
-
+   <!-- Web orders form -->
   <div class="form-container">
     <form class="form-grid">
       <div class="form-group">
@@ -32,6 +37,20 @@
           <option>TATAMOTORS</option>
           <option>ITC</option>
           <option>20MICRONS</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="strikePrice">Strike Price:</label>
+        <input type="text" id="strikePrice" placeholder="Strike Price" />
+      </div>
+
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <select id="expiryDate">
+          <option>2025-07-30</option>
+          <option>2025-08-28</option>
+          <option>2025-09-27</option>
         </select>
       </div>
 
@@ -99,13 +118,13 @@
           <option>X007</option>
         </select>
       </div>
-
+      <!-- Add Button -->
       <div class="btn-row">
         <button type="button" id="addBtn" onclick="handleAddClick()">Add</button>
       </div>
     </form>
   </div>
-
+  <!-- Orders Preview Table -->
   <div class="table-wrapper" style="display: none;" id="addTableWrapper">
     <table class="order-table">
       <thead>
@@ -129,16 +148,13 @@
       <tbody id="orderTableBody"></tbody>
     </table>
   </div>
-
+  <!-- Submit All Button -->
   <div class="submit-all centered-submit" id="submitBtnWrapper" style="display: none;">
     <button class="submit-btn" onclick="submitAll()">Submit All</button>
   </div>
-
-  <!-- ✅ Search + Filter Buttons Hidden Initially -->
+  <!-- Search Filter and Tabs  -->
   <div id="searchFilterWrapper" style="display: none; justify-content: center; align-items: center; gap: 12px; margin: 30px 0 10px 0;">
-    <input type="text" id="searchInput" placeholder="Search Trdsymbol..." 
-      oninput="searchSymbol()" 
-      style="padding: 8px 12px; width: 220px; font-size: 14px; border: 1px solid #ccc; border-radius: 4px;">
+    <input type="text" id="searchInput" placeholder="Search" oninput="searchSymbol()" style="padding: 10px 30x; width: 120px; height: 37px; font-size: 15px; border: 1px solid #ccc; border-radius: 5px;">
 
     <div class="tab-buttons" style="margin: 0; display: flex; gap: 12px;">
       <button onclick="filterRows('all')">All</button>
@@ -147,7 +163,7 @@
       <button onclick="filterRows('preorder')">PreOrder</button>
     </div>
   </div>
-
+  <!-- Final Orders Table Section -->
   <div id="finalTableSection" style="display: none; margin-top: 40px; overflow: visible;">
     <div id="finalTableScrollWrapper" class="final-scroll-container">
       <div class="table-scroll-inner">
@@ -155,14 +171,70 @@
           <thead>
             <tr>
               <th onclick="sortTable('uid')">UID</th>
-              <th onclick="sortTable('symbol')">Trdsymbol <span id="arrow-symbol">⇅</span></th>
-              <th onclick="sortTable('clientcode')">clientcode</th>
-              <th onclick="sortTable('buysell')">buysell</th>
-              <th onclick="sortTable('inv')">investment</th>
-              <th onclick="sortTable('qty')">qty</th>
-              <th onclick="sortTable('price')">EntryPrice</th>
-              <th onclick="sortTable('tgt')">TgtPrice</th>
-              <th onclick="sortTable('sl')">SLPrice</th>
+              <th onclick="sortTable('symbol')">Trdsymbol
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('clientcode')">clientcode
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('buysell')">buysell
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('inv')">investment
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('qty')">qty
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('price')">EntryPrice
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('tgt')">TgtPrice
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
+              <th onclick="sortTable('sl')">SLPrice
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 14 18" width="12" height="18" style="vertical-align: middle; margin-left: 3px;">
+              <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              <g transform="translate(0,4) rotate(180,7,7)">
+                <path d="M7 1l4 6H3l4-6z" fill="currentColor"></path>
+              </g>
+              </svg>
+              </th>
               <th>EntryStatus</th>
               <th>ExitStatus</th>
               <th>LockTime</th>
@@ -176,11 +248,11 @@
       </div>
     </div>
   </div>
-
+  <!-- Click Sound Effect -->
   <audio id="clickSound" preload="auto">
     <source src="addclicksound.mp3" type="audio/mpeg">
   </audio>
-
+  <!-- Script Include --> 
   <script src="script.js"></script>
 
 </body>
