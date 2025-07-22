@@ -619,5 +619,71 @@ select {
   table {
     width: 100% !important;
   }
+
+
+  /* ... Tumhara existing mobile responsive code ... */
+
+  /* Column widths - no fake spacing */
+  .final-order-table th:nth-child(1),
+  .final-order-table td:nth-child(1) {
+    min-width: 130px;
+  }
+
+  /* ... aur bhi jo existing code hai ... */
+
+  table {
+    width: 100% !important;
+  }
+
+  /* ✅ Yeh paste karo bilkul end ke pehle */
+  .order-table th:last-child,
+  .order-table td:last-child {
+    right: 0;
+    position: sticky;
+    z-index: 3;
+  }
+
+  #addTableWrapper {
+    padding: 0;
+    overflow-x: auto;
+  }
+
+  .order-table {
+    margin: 0;
+    min-width: 100%;
+  }
+
 }
 
+/* new lines */
+
+/* Fix for Action Column in Add Table */
+
+.order-table th:last-child {
+  position: sticky;
+  right: 0;
+  background: #11c5a4;
+  z-index: 3;  /* Header higher */
+}
+
+.order-table td:last-child {
+  position: sticky;
+  right: 0;
+  background: white;  /* ✅ White background for data rows */
+  z-index: 2;
+}
+
+/* Fix for Action Column in Final Table */
+.final-order-table th:last-child {
+  position: sticky;
+  right: 0;
+  background: #11c5a4;
+  z-index: 3;  /* Header higher */
+}
+
+.final-order-table td:last-child {
+  position: sticky;
+  right: 0;
+  background: white;  /* ✅ White background for data rows */
+  z-index: 2;
+} 
